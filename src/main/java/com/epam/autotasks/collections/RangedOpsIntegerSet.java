@@ -1,35 +1,57 @@
 package com.epam.autotasks.collections;
 
-import java.util.AbstractSet;
-import java.util.Iterator;
+import java.util.*;
 
 class RangedOpsIntegerSet extends AbstractSet<Integer> {
 
+    private final Set<Integer> list = new TreeSet<>();
+
     public boolean add(int fromInclusive, int toExclusive) {
-        throw new UnsupportedOperationException();
+        boolean modified = false;
+        for (int i = fromInclusive; i < toExclusive; i++) {
+            modified |= list.add(i);
+        }
+        return modified;
     }
 
+
     public boolean remove(int fromInclusive, int toExclusive) {
-        throw new UnsupportedOperationException();
+        boolean modified = false;
+        for (int i = fromInclusive; i < toExclusive; i++) {
+            modified |= list.remove(i);
+        }
+        return modified;
+
     }
+
 
     @Override
     public boolean add(final Integer integer) {
-        throw new UnsupportedOperationException();
+        if (! list.contains(integer)) {
+            list.add(integer);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean remove(final Object o) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(o);
+        if (list.contains((Integer) o)) {
+            list.remove(o);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Iterator<Integer> iterator() {
-        throw new UnsupportedOperationException();
+        return list.iterator();
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return list.size();
+
     }
 }
